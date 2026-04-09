@@ -1,0 +1,242 @@
+@import "tailwindcss";
+
+@theme {
+  --color-volt-yellow: #F5C400;
+  --color-volt-yellow-dim: rgba(245, 196, 0, 0.12);
+  --color-volt-dark: #0D0D0D;
+  --color-volt-black: #080808;
+  --color-volt-grey: #2A2A2A;
+  --color-volt-grey-light: #3A3A3A;
+  --color-volt-steel: #1A1A1A;
+  --color-volt-red: #DC2626;
+  --color-volt-red-dim: rgba(220, 38, 38, 0.15);
+  --font-display: var(--font-oswald);
+  --font-code: var(--font-jetbrains);
+}
+
+/* ── Global Reset ──────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #0D0D0D;
+  color: #E8E8E8;
+  font-family: var(--font-jetbrains), 'Courier New', monospace;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ── Typography Helpers ────────────────────────── */
+.font-display {
+  font-family: var(--font-oswald), Impact, 'Arial Narrow', sans-serif;
+}
+.font-code {
+  font-family: var(--font-jetbrains), 'Courier New', monospace;
+}
+
+/* ── Animations ────────────────────────────────── */
+@keyframes arc-flicker {
+  0%   { opacity: 0.35; box-shadow: 0 0 8px rgba(245,196,0,0.3); transform: scaleX(0.7); }
+  10%  { opacity: 1;    box-shadow: 0 0 30px #F5C400, 0 0 60px rgba(245,196,0,0.4); transform: scaleX(1); }
+  11%  { opacity: 0.2; }
+  12%  { opacity: 1; }
+  50%  { opacity: 0.6;  box-shadow: 0 0 15px rgba(245,196,0,0.5); transform: scaleX(0.85); }
+  70%  { opacity: 0.9;  box-shadow: 0 0 25px #F5C400; transform: scaleX(1); }
+  85%  { opacity: 0.2; }
+  86%  { opacity: 1;    box-shadow: 0 0 50px #F5C400, 0 0 100px rgba(245,196,0,0.3); }
+  87%  { opacity: 0.4; }
+  88%  { opacity: 1; }
+  100% { opacity: 0.35; box-shadow: 0 0 8px rgba(245,196,0,0.3); transform: scaleX(0.7); }
+}
+
+@keyframes neon-flicker {
+  0%, 18%, 22%, 25%, 53%, 57%, 100% {
+    text-shadow:
+      0 0 2px #fff,
+      0 0 6px #F5C400,
+      0 0 14px #F5C400,
+      0 0 28px rgba(245,196,0,0.55);
+    opacity: 1;
+  }
+  20%, 24%, 55% {
+    text-shadow: none;
+    opacity: 0.72;
+  }
+}
+
+@keyframes badge-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(245,196,0,0.5); }
+  50%       { box-shadow: 0 0 0 8px rgba(245,196,0,0); }
+}
+
+@keyframes emergency-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.6); }
+  50%       { box-shadow: 0 0 0 10px rgba(220, 38, 38, 0); }
+}
+
+@keyframes scanline {
+  0%   { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+@keyframes float-spark {
+  0%   { opacity: 0; transform: translateY(0) scale(1); }
+  50%  { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-60px) scale(0); }
+}
+
+@keyframes counter-up {
+  from { transform: translateY(20px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes wire-draw {
+  from { stroke-dashoffset: 1000; }
+  to   { stroke-dashoffset: 0; }
+}
+
+@keyframes dot-pulse {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50%       { opacity: 1;   transform: scale(1.5); }
+}
+
+/* ── Named utility classes ─────────────────────── */
+.animate-arc {
+  animation: arc-flicker 3.5s ease-in-out infinite;
+}
+
+.animate-neon {
+  animation: neon-flicker 4s linear infinite;
+}
+
+.animate-badge-pulse {
+  animation: badge-pulse 2s ease-in-out infinite;
+}
+
+.animate-emergency-pulse {
+  animation: emergency-pulse 1.5s ease-in-out infinite;
+}
+
+/* ── Background Textures ───────────────────────── */
+.bg-dot-grid {
+  background-image: radial-gradient(circle, rgba(245,196,0,0.18) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+.bg-circuit {
+  background-image:
+    linear-gradient(rgba(245,196,0,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(245,196,0,0.04) 1px, transparent 1px),
+    linear-gradient(rgba(245,196,0,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(245,196,0,0.02) 1px, transparent 1px);
+  background-size: 80px 80px, 80px 80px, 20px 20px, 20px 20px;
+  background-position: -1px -1px, -1px -1px, -1px -1px, -1px -1px;
+}
+
+/* ── Diagonal Dividers ─────────────────────────── */
+.clip-diagonal-top {
+  clip-path: polygon(0 4%, 100% 0%, 100% 100%, 0% 100%);
+}
+
+.clip-diagonal-bottom {
+  clip-path: polygon(0 0, 100% 0, 100% 96%, 0 100%);
+}
+
+.clip-diagonal-both {
+  clip-path: polygon(0 4%, 100% 0, 100% 96%, 0 100%);
+}
+
+/* ── Card Glow Effect ──────────────────────────── */
+.card-hover {
+  transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  border: 1px solid rgba(245, 196, 0, 0.08);
+}
+
+.card-hover:hover {
+  border-color: rgba(245, 196, 0, 0.5);
+  box-shadow: 0 0 30px rgba(245, 196, 0, 0.12), inset 0 0 30px rgba(245, 196, 0, 0.04);
+  transform: translateY(-4px);
+}
+
+/* ── Button Styles ─────────────────────────────── */
+.btn-primary {
+  background-color: #F5C400;
+  color: #0D0D0D;
+  font-family: var(--font-oswald), sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: all 0.15s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary:hover {
+  background-color: #FFD600;
+  box-shadow: 0 0 25px rgba(245,196,0,0.7), 0 0 60px rgba(245,196,0,0.3);
+  transform: translateY(-2px);
+}
+
+.btn-emergency {
+  background-color: transparent;
+  color: #DC2626;
+  font-family: var(--font-oswald), sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border: 2px solid #DC2626;
+  transition: all 0.15s ease;
+  animation: emergency-pulse 1.5s ease-in-out infinite;
+}
+
+.btn-emergency:hover {
+  background-color: #DC2626;
+  color: #fff;
+  box-shadow: 0 0 25px rgba(220,38,38,0.7), 0 0 60px rgba(220,38,38,0.3);
+  transform: translateY(-2px);
+}
+
+/* ── Scrollbar ─────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #0D0D0D; }
+::-webkit-scrollbar-thumb { background: #F5C400; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #FFD600; }
+
+/* ── Selection ─────────────────────────────────── */
+::selection { background: rgba(245,196,0,0.3); color: #F5C400; }
+
+/* ── Focus Ring ────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid #F5C400;
+  outline-offset: 2px;
+}
+
+/* ── Input Styles ──────────────────────────────── */
+.volt-input {
+  background: #1A1A1A;
+  border: 1px solid rgba(245,196,0,0.2);
+  color: #E8E8E8;
+  font-family: var(--font-jetbrains), monospace;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.volt-input:focus {
+  outline: none;
+  border-color: #F5C400;
+  box-shadow: 0 0 15px rgba(245,196,0,0.2);
+}
+
+.volt-input::placeholder {
+  color: rgba(232,232,232,0.3);
+  font-family: var(--font-jetbrains), monospace;
+}
